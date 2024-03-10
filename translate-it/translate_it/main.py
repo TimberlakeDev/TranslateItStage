@@ -15,6 +15,7 @@ def open_webdriver():
     options.add_argument("--force-dark-mode")
     options.add_argument("--force-device-scale-factor=3")
     options.add_argument("--hide-scrollbars")
+    options.add_argument("--disable-extensions")
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     driver = webdriver.Chrome(options=options)
 
