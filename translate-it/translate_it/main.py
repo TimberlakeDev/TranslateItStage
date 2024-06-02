@@ -1,3 +1,4 @@
+import datetime
 from time import sleep
 
 from selenium import webdriver
@@ -43,8 +44,9 @@ def open_website(driver):
         By.CSS_SELECTOR, "input[aria-label='Enter 5 letter conversation code']"
     ).send_keys(code)
 
+    now = datetime.datetime.now()
     driver.find_element(By.CSS_SELECTOR, "input[aria-label='Username']").send_keys(
-        "TimberlakeK"
+        "TimberlakeK" + str(int(now.timestamp()))[-4:-1]
     )
     driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
 
@@ -93,10 +95,15 @@ def open_website(driver):
     driver.execute_script(script)
     driver.fullscreen_window()
 
-    sleep(86400)
-
 
 if __name__ == "__main__":
-    driver = open_webdriver()
-    open_website(driver)
-    driver.quit()
+    while True:
+        driver = open_webdriver()
+        open_website(driver)
+
+        userInput = input("Press Enter to create a new session or type 'q' to quit: ")
+
+        driver.quit()
+
+        if userInput == "q":
+            break
